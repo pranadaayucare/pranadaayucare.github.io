@@ -51,7 +51,7 @@
 </head>
 <body class="bg-background text-foreground antialiased">
 
-<div id="page-loader" class="fixed inset-0 z-[100] flex items-center justify-center bg-cream transition-opacity duration-500">
+<div id="page-loader" class="fixed inset-0 z-[100] flex items-center justify-center bg-cream transition-opacity duration-300">
   <div class="flex flex-col items-center gap-4">
     <span class="size-12 animate-spin rounded-full border-4 border-forest/15 border-t-forest"></span>
     <p class="font-heading text-lg tracking-[-0.02em] text-forest">Pranada Ayucare</p>
@@ -417,13 +417,26 @@
   lucide.createIcons();
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  window.addEventListener('load', function () {
+  (function () {
     var loader = document.getElementById('page-loader');
     if (!loader) return;
-    loader.style.opacity = '0';
-    loader.addEventListener('transitionend', function () { loader.remove(); }, { once: true });
-    setTimeout(function () { loader.remove(); }, 600);
-  });
+    var hidden = false;
+    function hideLoader() {
+      if (hidden) return;
+      hidden = true;
+      loader.style.opacity = '0';
+      loader.addEventListener('transitionend', function () { loader.remove(); }, { once: true });
+      setTimeout(function () { loader.remove(); }, 350);
+    }
+    var logo = document.querySelector('header img');
+    if (logo && logo.complete) {
+      hideLoader();
+    } else if (logo) {
+      logo.addEventListener('load', hideLoader);
+      logo.addEventListener('error', hideLoader);
+    }
+    setTimeout(hideLoader, 1000);
+  })();
 </script>
 </body>
 </html>
