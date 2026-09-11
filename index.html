@@ -50,6 +50,14 @@
 </style>
 </head>
 <body class="bg-background text-foreground antialiased">
+
+<div id="page-loader" class="fixed inset-0 z-[100] flex items-center justify-center bg-cream transition-opacity duration-500">
+  <div class="flex flex-col items-center gap-4">
+    <span class="size-12 animate-spin rounded-full border-4 border-forest/15 border-t-forest"></span>
+    <p class="font-heading text-lg tracking-[-0.02em] text-forest">Pranada Ayucare</p>
+  </div>
+</div>
+
 <main class="min-h-screen overflow-hidden bg-background text-foreground">
 
   <header class="relative z-30 border-b border-forest/10 bg-cream/90 backdrop-blur-md">
@@ -408,6 +416,14 @@
 <script>
   lucide.createIcons();
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  window.addEventListener('load', function () {
+    var loader = document.getElementById('page-loader');
+    if (!loader) return;
+    loader.style.opacity = '0';
+    loader.addEventListener('transitionend', function () { loader.remove(); }, { once: true });
+    setTimeout(function () { loader.remove(); }, 600);
+  });
 </script>
 </body>
 </html>
