@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pranadaayucare.github.io/sitemap.xml
+Sitemap: https://pranadaayurveda.in/sitemap.xml
